@@ -65,7 +65,7 @@ body {
             }
         }
 
-        .open + .block {
+        .show + .block {
             opacity: 1;
             pointer-events: auto;
             top: 28px;

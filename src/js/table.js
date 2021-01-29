@@ -1,25 +1,36 @@
 class Table {
 
     constructor() {
-        document.getElementById('dropdown').onclick = this.toggleDropdown;
+        document.onclick = this.hideOpenedElement;
+        document.getElementById('dropdown').onclick = this.toggleElement.bind(true, this.hideOpenedElement);
     };
 
     initEvents() {
         document.querySelectorAll('.has-comment').forEach(item => {
-            item.onclick = this.toggleComment;
+            item.onclick = this.toggleElement.bind(true, this.hideOpenedElement);
         });
     };
 
-    toggleDropdown(event) {
+    toggleElement(hideOpenedElement, event) {
+        event.stopPropagation();
+        
         const $this = event.target;
 
-        $this.classList.toggle('open');
+        if (!$this.classList.contains('show')) {
+            hideOpenedElement();
+
+            $this.classList.add('show');
+        } else {
+            $this.classList.remove('show');
+        }
     };
 
-    toggleComment(event) {
-        const $this = event.target;
-
-        $this.classList.toggle('show');
+    hideOpenedElement() {
+        const dropdown = document.querySelector('#dropdown.show');
+        const comment = document.querySelector('.has-comment.show');
+        
+        if (dropdown) dropdown.classList.remove('show');
+        if (comment) comment.classList.remove('show');
     };
 };
 

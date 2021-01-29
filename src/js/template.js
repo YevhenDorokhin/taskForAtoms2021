@@ -16,11 +16,9 @@ class Template {
                 subjects[subject].forEach(item => {
                     subjectDays.push(item[0].value);
     
-                    this.createSubjectDays(subject, item);
+                    this.createSubjectDay(subject, item);
                 });
             }
-    
-            subjectDays = [...new Set(subjectDays)];
     
             this.createDays('#days', data.days, true);
     
@@ -54,14 +52,14 @@ class Template {
         this.createDays(`[data-subject="${subject}"]`, days, null);
     };
 
-    createSubjectDays(subject, day) {
-        const daysTemplate = document.querySelector(`[data-subject="${subject}"] [data-day="${day[0].value}"]`);
+    createSubjectDay(subject, day) {
+        const dayTemplate = document.querySelector(`[data-subject="${subject}"] [data-day="${day[0].value}"]`);
         const commentText = day[2] ? `<div class="comment">${day[2].value}</div>` : '';
         const mark = day[1] ? day[1].value : '';
 
-        if (day[2]) daysTemplate.classList.add('has-comment');
+        if (day[2]) dayTemplate.classList.add('has-comment');
 
-        daysTemplate.innerHTML += mark + commentText;
+        dayTemplate.innerHTML = mark + commentText;
     };
 
     removeEmptyDays(days, subjectDays) {
